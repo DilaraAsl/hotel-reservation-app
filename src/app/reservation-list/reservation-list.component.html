@@ -1,1 +1,18 @@
-<p>reservation-list works!</p>
+
+<div class="container">
+
+    <h2 class="text-center mt-5"> Reservations</h2>
+    <div>
+    
+        <ul class="list-group mt-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center " *ngFor="let reservation of reservations">
+                {{reservation.id}} {{reservation.checkInDate |date:'dd.MM.yyyy'}} {{reservation.checkInDate|date:'dd.MM.yyyy'}}
+                {{reservation.roomNumber}} {{reservation.guestName}} {{reservation.guestEmail}}
+                <!-- <button class="btn btn-danger" *ngIf="appointment" (click)="onDeleteAppointment(appointment.id)">Delete</button> -->
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+

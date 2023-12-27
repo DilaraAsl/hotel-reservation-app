@@ -1,5 +1,5 @@
 export interface ReservationDto {
-    id: string,
+    id: number,
     checkInDate: Date;
     checkOutDate: Date;
     guestName: string,
