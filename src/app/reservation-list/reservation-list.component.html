@@ -4,14 +4,25 @@
     <h2 class="text-center mt-5"> Reservations</h2>
     <div>
     
-        <ul class="list-group mt-3">
+        <ul *ngIf="reservations.length; else noReservation"class="list-group mt-3">
             <li class="list-group-item d-flex justify-content-between align-items-center " *ngFor="let reservation of reservations">
-                {{reservation.id}} {{reservation.checkInDate |date:'dd.MM.yyyy'}} {{reservation.checkInDate|date:'dd.MM.yyyy'}}
-                {{reservation.roomNumber}} {{reservation.guestName}} {{reservation.guestEmail}}
-                <!-- <button class="btn btn-danger" *ngIf="appointment" (click)="onDeleteAppointment(appointment.id)">Delete</button> -->
+                Reservation Id: {{reservation.id}} <br>
+                Guest: {{reservation.guestName}}<br> 
+                Email: {{reservation.guestEmail}}<br> 
+                checkInDate: {{reservation.checkInDate |date:'dd.MM.yyyy'}}<br>
+                checkOutDate:  {{reservation.checkOutDate|date:'dd.MM.yyyy'}}<br>
+                Room No: {{reservation.roomNumber}} <br>
+                <button class="btn btn-info" [routerLink]="['/edit', reservation.id]">Edit</button>
+                <button class="btn btn-danger" *ngIf="reservation" (click)="onDeleteReservation(reservation.id)">Delete</button>
             </li>
             
         </ul>
+        <br><br>
+        <!-- #noReservation local reference  -->
+        <ng-template #noReservation>
+            <p>No reservation available.</p>
+        </ng-template>
+        
     </div>
 </div>
 
