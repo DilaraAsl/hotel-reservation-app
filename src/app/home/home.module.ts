@@ -9,7 +9,11 @@ import { RouterModule } from '@angular/router';
     HomeComponent
   ],
   imports: [
-    CommonModule,RouterModule
+    CommonModule,
+    RouterModule
+  ], // we have to export the Home component so that reservation module can use it
+  exports: [
+    HomeComponent
   ]
 })
 export class HomeModule { }

@@ -28,7 +28,7 @@ export class ReservationService {
    // Use the backticks (`) for template literals and interpolate the id
   return this.http.get<ReservationDto>(`${this.apiUrl}/${id}`).pipe(
     catchError((error) => {
-      console.error('Error saving reservation:', error);
+      console.error('Error getting reservation:', error);
       throw error;
     })
   );
