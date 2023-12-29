@@ -74,10 +74,28 @@ addReserVation(reservation: ReservationDto): Observable<ReservationDto> {
     );
   }
 
-  updateReservation(updatedReservation:ReservationDto):void{
-    let index=this.reservations.findIndex(res=>res.id===updatedReservation.id);
-    this.reservations[index]=updatedReservation;
+  updateReservation(id: number,updatedReservation: ReservationDto): Observable<any> {
+    return this.http.put<ReservationDto>(`${this.apiUrl}/update/${id}`, updatedReservation).pipe(
+      // In the tap operator, the code now maps over the existing reservations and updates the one 
+      // with a matching id. This ensures that the local data is updated without the need to reload it 
+      // from the server
+      tap((response: any) => {
+        const currentReservations = this.reservationSubject.value;
+        const updatedReservations = currentReservations.map((reservation) =>
+          reservation.id === updatedReservation.id ? updatedReservation : reservation
+        );
+        this.reservationSubject.next(updatedReservations);
+        console.log(response);
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Error updating reservation:', error);
+        // You can handle the error as needed, e.g., rethrow it or return a default value.
+        throw error;
+      }),
+    );
   }
+  
   // initial methods written before connecting to backend
 
   // getReservation(id: number): ReservationDto |undefined{ // we can run into an undefined value

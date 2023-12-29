@@ -80,14 +80,17 @@ export class ReservationFormComponent implements OnInit{
       //reservationForm.value => reservation obj
 
       let idString = this.activatedRoute.snapshot.paramMap.get('id');
+      let updatedReservation: ReservationDto = this.reservationForm.value;
     if (idString) {
       let id = +idString;
+    
       if (!isNaN(id)) {
-        this.reservationService.getReservationById(id).subscribe(
-          (savedReservation: ReservationDto) => {
-            console.log('Reservation retrieved successfully:', savedReservation);
-            // Move the patchValue inside the subscription
-            this.reservationForm.patchValue(savedReservation);
+        this.reservationService.updateReservation(id,updatedReservation).subscribe(
+          (newReservation: ReservationDto) => {
+            console.log('Reservation updated successfully:', newReservation);
+            this.reservationForm.patchValue(newReservation);
+            window.alert("Reservation successfully updated!!!");
+            this.router.navigate(['/list']);
           },
           (error) => {
             console.error('Error retrieving reservation:', error);
